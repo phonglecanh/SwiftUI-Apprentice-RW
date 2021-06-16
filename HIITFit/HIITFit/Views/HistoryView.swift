@@ -2,11 +2,11 @@ import SwiftUI
 
 struct HistoryView: View {
     
-    let today = Date()
-    let yesterday = Date().addingTimeInterval(-86400)
-    
-    let exercises1 = ["Squat", "Step Up", "Burpee", "Sun Salute"]
-    let exercises2 = ["Squat", "Step Up", "Burpee"]
+    //let today = Date()
+    //let yesterday = Date().addingTimeInterval(-86400)
+    let history = HistoryStore()
+//    let exercises1 = ["Squat", "Step Up", "Burpee", "Sun Salute"]
+//    let exercises2 = ["Squat", "Step Up", "Burpee"]
     
     var body: some View {
         
@@ -16,23 +16,20 @@ struct HistoryView: View {
             }.font(.title)
             .padding(.trailing)
             VStack {
-                Text("History")
+                Text( NSLocalizedString("History", comment: "view user activity"))
                     .font(.title)
                     .padding()
                 // Exercise history
                 Form {
-                    Section(
-                        header: Text(today.formatted(as: "MMM d")).font(.headline)) {
-                        ForEach(exercises1, id: \.self) { exercise in
-                            Text(exercise)
-                        }
-                    }
-                    Section(
-                        header: Text(yesterday.formatted(as: "MMM d")).font(.headline)) {
-                        ForEach(exercises2, id: \.self) { exercise in
-                            Text(exercise)
+                    ForEach(history.exerciseDays) { day in
+                        Section(
+                            header:
+                                Text(day.date.formatted(as: "MMMM d")).font(.headline)) {
+                            ForEach(day.exercises, id: \.self) { exercise in
+                                Text(exercise)
                             }
                         }
+                    }
                 }
             }
         }
