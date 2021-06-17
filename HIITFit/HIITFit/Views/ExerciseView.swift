@@ -3,7 +3,6 @@ import AVKit
 
 struct ExerciseView: View {
     @Binding var history: HistoryStore
-    @State private var rating = 0
     @Binding var selectedTab: Int
     @State private var showHistory = false
     @State private var showSuccess = false
@@ -50,7 +49,7 @@ struct ExerciseView: View {
                     TimerView(timerDone: $timerDone)
                 }
                 Spacer()
-                RatingView(rating: $rating).padding()
+                RatingView(exerciseIndex: index).padding()
                 Button("History") {
                   showHistory.toggle()
                 }

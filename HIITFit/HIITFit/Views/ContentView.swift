@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var history = HistoryStore()
-    @State private var selectedTab = 9
+    @SceneStorage("selectedTab") private var selectedTab = 9
     
   var body: some View {
     TabView(selection: $selectedTab) {
@@ -12,6 +12,9 @@ struct ContentView: View {
         }
     }
     .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+    .onAppear {
+        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+    }
   }
 }
 
