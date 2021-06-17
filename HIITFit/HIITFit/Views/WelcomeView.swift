@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct WelcomeView: View {
+    let history: HistoryStore
     @State private var showHistory = false
     @Binding var selectedTab: Int
     var body: some View {
@@ -14,7 +15,7 @@ struct WelcomeView: View {
                     showHistory.toggle()
                 }
                 .sheet(isPresented: $showHistory) {
-                    HistoryView(showHistory: $showHistory)
+                    HistoryView(history: history, showHistory: $showHistory)
                 }
                     .padding(.bottom)
             }
@@ -44,6 +45,6 @@ struct WelcomeView: View {
 
 struct WelcomeView_Previews: PreviewProvider {
     static var previews: some View {
-        WelcomeView(selectedTab: .constant(9))
+        WelcomeView(history: HistoryStore(), selectedTab: .constant(0))
     }
 }

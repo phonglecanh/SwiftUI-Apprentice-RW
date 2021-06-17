@@ -1,15 +1,10 @@
 import SwiftUI
 
 struct HistoryView: View {
+    let history: HistoryStore
     @Binding var showHistory: Bool
-    //let today = Date()
-    //let yesterday = Date().addingTimeInterval(-86400)
-    let history = HistoryStore()
-//    let exercises1 = ["Squat", "Step Up", "Burpee", "Sun Salute"]
-//    let exercises2 = ["Squat", "Step Up", "Burpee"]
     
     var body: some View {
-        
         ZStack(alignment: .topTrailing) {
             Button(action: { showHistory.toggle() }) {
                Image(systemName: "xmark.circle")
@@ -38,6 +33,6 @@ struct HistoryView: View {
 
 struct HistoryView_Previews: PreviewProvider {
     static var previews: some View {
-        HistoryView(showHistory: .constant(true))
+        HistoryView(history: HistoryStore(), showHistory: .constant(true))
     }
 }
