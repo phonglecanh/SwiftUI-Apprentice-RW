@@ -5,15 +5,18 @@ struct ContentView: View {
     @SceneStorage("selectedTab") private var selectedTab = 9
     
   var body: some View {
-    TabView(selection: $selectedTab) {
-        WelcomeView(history: history, selectedTab: $selectedTab).tag(9)
-        ForEach(0 ..< Exercise.exercises.count) { index in
-        ExerciseView(history: $history ,selectedTab: $selectedTab, index: index).tag(index)
+    ZStack {
+        GradientBackground()
+        TabView(selection: $selectedTab) {
+            WelcomeView(history: history, selectedTab: $selectedTab).tag(9)
+            ForEach(0 ..< Exercise.exercises.count) { index in
+            ExerciseView(history: $history ,selectedTab: $selectedTab, index: index).tag(index)
+            }
         }
+        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+        .onAppear {
+            print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
     }
-    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-    .onAppear {
-        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
     }
   }
 }
