@@ -14,6 +14,25 @@ struct ExerciseView: View {
     var lastExercise: Bool {
         index + 1  == Exercise.exercises.count
     }
+    var startExerciseButton: some View {
+      RaisedButton(buttonText: "Start Exercise") {
+        showTimer.toggle()
+      }
+    }
+    
+    var historyButton: some View {
+      Button(
+        action: {
+          showHistory = true
+        }, label: {
+          Text("History")
+            .fontWeight(.bold)
+            .padding([.leading, .trailing], 5)
+        })
+        .padding(.bottom, 10)
+        .buttonStyle(EmbossedButtonStyle())
+    }
+    
     var body: some View {
         GeometryReader { geometry in
             VStack {
@@ -26,9 +45,7 @@ struct ExerciseView: View {
                     Text("Couldn't find \(Exercise.exercises[index].videoName).mp4")
                 }
                 HStack(spacing: 150) {
-                    Button("Start Exercise") {
-                        showTimer.toggle()
-                    }
+                    startExerciseButton
                     Button("Done") {
                         history.addDoneExercise(Exercise.exercises[index].exerciseName)
                         timerDone = true
@@ -50,9 +67,7 @@ struct ExerciseView: View {
                 }
                 Spacer()
                 RatingView(exerciseIndex: index).padding()
-                Button("History") {
-                  showHistory.toggle()
-                }
+                historyButton
                 .sheet(isPresented: $showHistory) {
                     HistoryView(history: history, showHistory: $showHistory)
                 }
